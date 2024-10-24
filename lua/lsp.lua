@@ -22,10 +22,12 @@ vim.api.nvim_create_autocmd('FileType', {
           single_file_support = true,
 
           -- diagnostics could be declared on its own but not technically correct according to the standard LSP configuration structure
-          init_options = {
-            diagnostics = {
-              globals = {'vim'},  -- Define 'vim' as a recognized global variable
-            },
+          settings = {
+              Lua = {
+                  diagnostics = {
+                      globals = {'vim'},
+                  },
+              },
           },
 
         })
