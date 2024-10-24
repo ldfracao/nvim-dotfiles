@@ -48,6 +48,12 @@ local default_opts = {
     -- defines the number of spaces to use for each step of (auto)indentation
     -- if set to zero falls back to the value in tabstop
     shiftwidth = 0,
+
+    ignorecase = true,
+    smartcase = true,
+
+    -- configures how the completion menu behaves when invoked
+    completeopt = 'menu,menuone,noselect'
 }
 
 for key, value in pairs(default_opts) do

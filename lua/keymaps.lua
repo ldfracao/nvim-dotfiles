@@ -9,9 +9,14 @@ local keymaps = {
     {'n', '<Esc>', '<cmd>nohl<CR>', { desc = 'Clear highlights when searching' }},
     {'n', '<leader>w', vim.cmd.w, { desc = 'Save file' }},
     {'n', '<leader>s', ':so<CR>', { desc = 'Sources the current file'}},
-    {'n', '<leader>y', '"+y', { desc = 'Yanks to plus(system clipboard) register'}},
-    {'n', '<leader>p', '"+p', { desc = 'Paste from plus(system clipboard) register'}},
+    {{'n', 'v'}, '<leader>y', '"+y', { desc = 'Yanks to plus(system clipboard) register'}},
+    {{'n', 'v'}, '<leader>p', '"+p', { desc = 'Paste from plus(system clipboard) register'}},
+    {'i', '(', '()<Esc>i', { desc = 'Auto completes parenthesis' }},
+    {'i', '[', '[]<Esc>i', { desc = 'Auto completes square brackets' }},
+    {'i', '{', '{}<Esc>i', { desc = 'Auto completes curly brackets' }},
 
+    -- diagnostics keymaps
+    {'n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics [q]uickfix list'}},
 }
 
 -- noremap (no recursive mapping) means that if the key combination you are mapping is already mapped to another command, that command will not be executed when the new mapping is triggered.
