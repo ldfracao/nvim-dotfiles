@@ -21,7 +21,7 @@ local default_opts = {
 	relativenumber = true,
 
 	-- highlights cursor line and column (default false)
-	cursorline = true,
+	-- cursorline = true,
 	-- cursorcolumn = true,
 
 	-- column to the left of the numbers used to display, for example, error signs
@@ -49,6 +49,7 @@ local default_opts = {
     -- if set to zero falls back to the value in tabstop
     shiftwidth = 0,
 
+    -- case insensitive searching UNLESS \C or one or more capital letters in search term
     ignorecase = true,
     smartcase = true,
 
