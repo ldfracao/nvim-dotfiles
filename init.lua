@@ -13,3 +13,4 @@ require 'options'
 require 'lsp'
 require 'keymaps'
 require 'autocommands'
+require('colorscheme').setup()

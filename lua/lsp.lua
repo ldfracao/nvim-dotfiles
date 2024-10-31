@@ -48,7 +48,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
         --    end
         --        print(vim.inspect(client.resolved_capabilities))
         --        print(vim.inspect(client))
-        -- Enable auto-completion
+
+        -- Enable auto-completion while typing
         if client.supports_method('textDocument/completion') then
             vim.api.nvim_create_autocmd('TextChangedI', {
                 buffer = args.buf,
