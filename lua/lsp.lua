@@ -26,48 +26,18 @@ vim.api.nvim_create_autocmd('FileType', {
             settings = {
                 Lua = {
                     runtime = {
-                        version = "Lua 5.1"
+                        version = "Lua 5.3"
                     },
                     diagnostics = {
                         globals = { 'vim' },
                     },
-                    --                   ["completion.enable"] = true
+                    completion = {
+                        callSnippet = 'Both',
+                        displayContext = 100
+                    }
                 },
             },
         })
-    end,
-})
-
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-        print(vim.inspect(args.data))
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        print(vim.inspect(client))
-        --    if client.supports_method('textDocument/implementation') then
-        --      -- Create a keymap for vim.lsp.buf.implementation
-        --    end
-        --        print(vim.inspect(client.resolved_capabilities))
-        --        print(vim.inspect(client))
-
-        -- Enable auto-completion while typing
-        if client.supports_method('textDocument/completion') then
-            vim.api.nvim_create_autocmd('TextChangedI', {
-                buffer = args.buf,
-                callback = function()
-                    -- Trigger completion
-                    vim.lsp.buf.completion()
-                end,
-            })
-        end
-        if client.supports_method('textDocument/formatting') then
-            -- Format the current buffer on save
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                buffer = args.buf,
-                callback = function()
-                    vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
-                end,
-            })
-        end
     end,
 })
 
@@ -80,6 +50,42 @@ vim.api.nvim_create_autocmd('FileType', {
             cmd = { 'clangd' },
             root_dir = vim.fs.root(args.buf, { 'Makefile' }),
             single_file_support = true,
+            settings = {
+                clangd = {
+                    diagnostics = {
+                        enable = true,
+                    },
+                },
+            },
         })
+    end,
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+            --if client.supports_method('textDocument/implementation') then
+            --  -- Create a keymap for vim.lsp.buf.implementation
+            --end
+        -- Enable auto-completion while typing
+        --        if client.supports_method('textDocument/completion') then
+        --            vim.api.nvim_create_autocmd('TextChangedI', {
+        --                buffer = args.buf,
+        --                callback = function()
+        --                    -- Trigger completion
+        --                    vim.lsp.buf.completion()
+        --                end,
+        --            })
+        --        end
+
+        -- Format the current buffer on save
+        --        if client.supports_method('textDocument/formatting') then
+        --            vim.api.nvim_create_autocmd('BufWritePre', {
+        --                buffer = args.buf,
+        --                callback = function()
+        --                    vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
+        --                end,
+        --            })
+        --        end
     end,
 })
