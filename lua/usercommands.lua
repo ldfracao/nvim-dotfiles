@@ -5,25 +5,30 @@ vim.api.nvim_create_user_command('LspInfo', function()
     local client = clients[1]
 
     -- Prepare display text
-    local lines = { "Active LSP clients:" }
+    local lines = { "" }
+    table.insert(lines, "   Active LSP clients:")
     if #clients == 0 then
-        table.insert(lines, "No active LSP clients")
+        table.insert(lines, "   No active LSP clients")
     else
-        table.insert(lines, string.format("- %s (id: %d)", client.name, client.id))
+        table.insert(lines, string.format("   - %s (id: %d)", client.name, client.id))
 
+        local capability_count = 0
         -- Add server capabilities
-        table.insert(lines, "  Capabilities:")
-        for capability, enabled in pairs(client.server_capabilities) do
-            if enabled then
-                table.insert(lines, string.format("    • %s", capability))
-            end
+        table.insert(lines, "     Capabilities:")
+        local unsorted_capabilities = {}
+        for capability, value in pairs(client.server_capabilities) do
+            table.insert(unsorted_capabilities, string.format("       • %s: %s", capability, tostring(value)))
+            capability_count = capability_count + 1
         end
-
-        -- Add root directory
-        table.insert(lines, string.format("  Root dir: %s", client.config.root_dir or "Not set"))
-        table.insert(lines, "") -- Empty line between clients
+        table.sort(unsorted_capabilities)
+        for _, capability in ipairs(unsorted_capabilities) do
+            table.insert(lines, capability)
     end
-
+        table.insert(lines, string.format("     Total capabilities: %d", capability_count))
+        -- Add root directory
+        table.insert(lines, string.format("     Root dir: %s", client.config.root_dir or "Not set"))
+        table.insert(lines, "")
+    end
 
     -- Create buffer for floating window
     local buf = vim.api.nvim_create_buf(false, true)

@@ -33,7 +33,8 @@ vim.api.nvim_create_autocmd('FileType', {
                     },
                     completion = {
                         callSnippet = 'Both',
-                        displayContext = 100
+                        -- Doesn't seem to be working, further tests required
+                        displayContext = 10
                     }
                 },
             },
