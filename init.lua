@@ -15,4 +15,4 @@ require 'keymaps'
 require 'autocommands'
 --require('colorscheme').setup()
 require 'diagnostics'
-require 'usercommands'
+require 'lsprobe'
